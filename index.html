@@ -38,6 +38,7 @@
     };
   </script>
   <link rel="stylesheet" href="css/style.css">
+     <link rel="stylesheet" href="css/extras.css">
 </head>
 <body>
   <a class="skip" href="#main">Перейти до вмісту</a>
@@ -88,6 +89,7 @@
         <div class="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-white/60 md:from-white md:via-white/50 md:to-transparent dark:from-night/95 dark:via-night/85 dark:to-night/60 dark:md:from-night dark:md:via-night/50 dark:md:to-transparent"></div>
       </div>
 
+         <div class="bubbles" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
       <div class="container relative z-10 py-12 md:py-20">
         <div class="max-w-xl space-y-6 text-left">
           <h1 id="hero-title" class="text-3xl font-extrabold leading-tight text-brand-dark sm:text-4xl md:text-5xl dark:text-green-50">
@@ -309,6 +311,8 @@
         <details><summary>Чи потрібно бути вдома під час прибирання?</summary><p>Ні, можна залишити ключі. Після завершення ми зателефонуємо.</p></details>
         <details><summary>Чи безпечні засоби для дітей і тварин?</summary><p>Так, ми використовуємо біорозкладні еко-засоби Kiehl без різких запахів.</p></details>
         <details><summary>Скільки триває прибирання?</summary><p>Квартира до 60 м² зазвичай займає 3–4 години.</p></details>
+           <details><summary>Як оплатити прибирання?</summary><p>Оплата після завершення робіт: готівкою або карткою. Остаточну вартість ви бачите в калькуляторі до підтвердження замовлення.</p></details>
+   <details><summary>Чи можна перенести або скасувати замовлення?</summary><p>Так, повідомте нас щонайменше за добу до початку, і ми перенесемо прибирання на зручний час без доплат.</p></details>
       </div>
     </section>
 
@@ -318,7 +322,16 @@
           <h2 id="team-title">Наша команда</h2>
           <p>Наші клінери проходять навчання, перевірку та працюють за єдиними стандартами якості.</p>
         </div>
-        <img class="photo" src="assets/images/team.jpg" alt="Команда клінерів Tidyly у фірмовій формі" width="560" height="380" loading="lazy">
+           <div class="flip" tabindex="0" role="group" aria-label="Фото команди Tidyly. Наведіть або натисніть, щоб прочитати про команду">
+     <div class="flip__inner">
+       <div class="flip__face"><img src="assets/images/team.jpg" alt="Команда клінерів Tidyly у фірмовій формі" width="560" height="380" loading="lazy"></div>
+       <div class="flip__face flip__back">
+         <h3>Команда Tidyly</h3>
+         <p>Кожен клінер проходить навчання та перевірку й працює за єдиними стандартами якості.</p>
+         <ul><li>Фірмова форма та професійний інвентар</li><li>Матеріальна відповідальність за майно</li><li>Регулярне підвищення кваліфікації</li></ul>
+       </div>
+     </div>
+   </div>
       </div>
     </section>
 
