@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tidyly — професійне прибирання у Львові</title>
+  <meta name="description" content="Tidyly — сервіс прибирання: професійний інвентар, еко-засоби, калькулятор вартості та онлайн-бронювання.">
+  <!-- Оптимізація LCP: Hero-зображення (WebP, ~60 КБ) завантажується раніше за решту ресурсів -->
+  <link rel="preload" as="image" href="assets/images/hero.webp" type="image/webp" fetchpriority="high">
+  <script>
+    /* Тема: збережений вибір, інакше системна. Виконується до рендеру, щоб не було «спалаху» */
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <!-- Шрифт Manrope (використовується у css/style.css) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%A7%B9%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS (CDN) та конфіг дизайн-системи Tidyly -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      corePlugins: { preflight: false, container: false }, // reset і .container лишаються у css/style.css
+      theme: { extend: { colors: {
+        brand: { DEFAULT: '#2e7d32', light: '#38a169', dark: '#1b4d20' },
+        gold: { DEFAULT: '#e5a93c', dark: '#c98c1e' },
+        mint: '#f4f9f5',
+        night: { DEFAULT: '#0e1512', soft: '#121c17', card: '#17231e', line: '#26362e', muted: '#b4c4ba' }
+      } } }
+    };
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Перейти до вмісту</a>
+
+  <header class="sticky top-0 z-50 bg-white/95 shadow-md backdrop-blur dark:bg-night/95">
+    <div class="container flex items-center justify-between gap-4 py-3">
+      <a href="index.html" class="flex items-center rounded-md" aria-label="Tidyly — на головну">
+        <img src="assets/images/logo.svg" alt="Tidyly" width="120" height="32" class="h-8 w-auto bg-transparent dark:brightness-0 dark:invert">
+      </a>
+      <nav class="hidden items-center gap-4 lg:flex xl:gap-6" aria-label="Головна навігація">
+        <a href="index.html" class="font-semibold text-slate-700 transition-colors hover:text-brand dark:text-green-50 dark:hover:text-emerald-300" aria-current="page">Головна</a>
+        <a href="#services" class="font-semibold text-slate-700 transition-colors hover:text-brand dark:text-green-50 dark:hover:text-emerald-300">Послуги</a>
+        <a href="#equipment" class="font-semibold text-slate-700 transition-colors hover:text-brand dark:text-green-50 dark:hover:text-emerald-300">Техніка</a>
+        <a href="#calculator" class="font-semibold text-slate-700 transition-colors hover:text-brand dark:text-green-50 dark:hover:text-emerald-300">Ціни / Калькулятор</a>
+        <a href="#team" class="font-semibold text-slate-700 transition-colors hover:text-brand dark:text-green-50 dark:hover:text-emerald-300">Наша команда</a>
+        <a href="#contacts" class="font-semibold text-slate-700 transition-colors hover:text-brand dark:text-green-50 dark:hover:text-emerald-300">Контакти</a>
+      </nav>
+      <div class="ml-auto flex items-center gap-3 lg:ml-0">
+        <button id="theme-toggle" type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-full border-2 border-gray-200 text-slate-700 transition-colors hover:border-brand dark:border-night-line dark:text-green-50" aria-pressed="false" aria-label="Темна тема">
+          <svg class="h-5 w-5 dark:hidden" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="hidden h-5 w-5 dark:block" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+        <a href="#calculator" class="hidden min-h-11 items-center justify-center rounded-full bg-gold px-6 font-bold text-slate-800 transition-colors hover:bg-gold-dark xl:inline-flex">Розрахувати</a>
+      </div>
+      <button id="menu-btn" type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-md text-slate-700 hover:text-brand lg:hidden dark:text-green-50" aria-expanded="false" aria-controls="mobile-menu" aria-label="Відкрити меню">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden border-t border-gray-100 bg-white lg:hidden dark:border-night-line dark:bg-night">
+      <nav class="container flex flex-col py-2" aria-label="Мобільна навігація">
+        <a href="index.html" class="block border-b border-gray-100 py-3 font-semibold text-slate-700 hover:text-brand dark:border-night-line dark:text-green-50 dark:hover:text-emerald-300" aria-current="page">Головна</a>
+        <a href="#services" class="block border-b border-gray-100 py-3 font-semibold text-slate-700 hover:text-brand dark:border-night-line dark:text-green-50 dark:hover:text-emerald-300">Послуги</a>
+        <a href="#equipment" class="block border-b border-gray-100 py-3 font-semibold text-slate-700 hover:text-brand dark:border-night-line dark:text-green-50 dark:hover:text-emerald-300">Техніка</a>
+        <a href="#calculator" class="block border-b border-gray-100 py-3 font-semibold text-slate-700 hover:text-brand dark:border-night-line dark:text-green-50 dark:hover:text-emerald-300">Ціни / Калькулятор</a>
+        <a href="#team" class="block border-b border-gray-100 py-3 font-semibold text-slate-700 hover:text-brand dark:border-night-line dark:text-green-50 dark:hover:text-emerald-300">Наша команда</a>
+        <a href="#contacts" class="block border-b border-gray-100 py-3 font-semibold text-slate-700 hover:text-brand dark:border-night-line dark:text-green-50 dark:hover:text-emerald-300">Контакти</a>
+        <a href="#calculator" class="my-3 inline-flex min-h-11 items-center justify-center rounded-full bg-gold px-6 font-bold text-slate-800 hover:bg-gold-dark">Розрахувати</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="relative flex min-h-[85vh] items-center overflow-hidden bg-slate-100 dark:bg-night" id="hero" aria-labelledby="hero-title">
+      <!-- Фонове зображення + градієнт для читабельності тексту (світла і темна тема) -->
+      <div class="absolute inset-0 z-0">
+        <img src="assets/images/hero.webp" alt="Клінер Tidyly прибирає світле приміщення" width="1600" height="893" class="h-full w-full object-cover object-right-top" fetchpriority="high" decoding="async">
+        <div class="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-white/60 md:from-white md:via-white/50 md:to-transparent dark:from-night/95 dark:via-night/85 dark:to-night/60 dark:md:from-night dark:md:via-night/50 dark:md:to-transparent"></div>
+      </div>
+
+      <div class="container relative z-10 py-12 md:py-20">
+        <div class="max-w-xl space-y-6 text-left">
+          <h1 id="hero-title" class="text-3xl font-extrabold leading-tight text-brand-dark sm:text-4xl md:text-5xl dark:text-green-50">
+            Бездоганна чистота вдома та в офісі без зайвого клопоту
+          </h1>
+          <p class="text-lg font-medium leading-relaxed text-slate-700 sm:text-xl dark:text-green-100">
+            Професійний клінінг у Львові з матеріальною відповідальністю
+          </p>
+          <div class="pt-4">
+            <!-- Pick Element: точкове редагування CTA — hover, focus-visible, active; виправлено колір тексту при hover -->
+            <a href="#calculator" class="inline-flex min-h-11 items-center justify-center rounded-full bg-gold px-8 py-3.5 font-bold text-slate-800 shadow-md transition duration-200 hover:bg-gold-dark hover:!text-slate-800 hover:shadow-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-dark focus-visible:ring-offset-2 dark:focus-visible:ring-gold dark:focus-visible:ring-offset-night active:scale-95">
+              Розрахувати вартість
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--mint" id="services" aria-labelledby="srv-title">
+      <div class="container">
+        <h2 id="srv-title">Наші послуги</h2>
+        <p class="lead">Три основні формати прибирання. Окремо можна додати миття вікон, чистку холодильника чи духовки — ці опції є в <a href="#calculator">калькуляторі</a>.</p>
+        <div class="cards">
+          <article class="card card--accent"><h3>Генеральне прибирання</h3><p>Повне очищення поверхонь, техніки та важкодоступних місць.</p></article>
+          <article class="card card--accent"><h3>Підтримуюче прибирання</h3><p>Регулярний догляд, щоб дім чи офіс завжди були охайними.</p></article>
+          <article class="card card--accent"><h3>Хімчистка меблів</h3><p>Видалення плям і запахів з диванів, крісел та килимів.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="equipment" aria-labelledby="eq-title">
+      <div class="container">
+        <h2 id="eq-title">Наша техніка</h2>
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <article class="flex flex-col overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-night-line dark:bg-night-card">
+            <img src="assets/images/karcher-t10-1.jpg" alt="Пилосос Karcher T 10/1" width="320" height="240" loading="lazy" class="aspect-[4/3] w-full bg-transparent object-cover">
+            <div class="flex flex-1 flex-col gap-2 p-5">
+              <h3 class="text-xl font-bold text-brand-dark dark:text-emerald-200">Пилосос Karcher T 10/1</h3>
+              <p class="flex-1 text-sm text-slate-600 dark:text-night-muted">Професійний сухий пилосос із HEPA-фільтром для щоденного прибирання.</p>
+              <a href="#calculator" class="mt-3 inline-flex min-h-11 items-center justify-center rounded-full bg-gold px-4 font-bold text-slate-800 transition-colors hover:bg-gold-dark">Розрахувати вартість</a>
+            </div>
+          </article>
+          <article class="flex flex-col overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-night-line dark:bg-night-card">
+            <img src="assets/images/karcher-sc5-deluxe.jpg" alt="Парогенератор Karcher SC 5 Deluxe" width="320" height="240" loading="lazy" class="aspect-[4/3] w-full bg-transparent object-cover">
+            <div class="flex flex-1 flex-col gap-2 p-5">
+              <h3 class="text-xl font-bold text-brand-dark dark:text-emerald-200">Парогенератор SC 5 Deluxe</h3>
+              <p class="flex-1 text-sm text-slate-600 dark:text-night-muted">Дезінфекція та видалення жиру гарячою парою без агресивної хімії.</p>
+              <a href="#calculator" class="mt-3 inline-flex min-h-11 items-center justify-center rounded-full bg-gold px-4 font-bold text-slate-800 transition-colors hover:bg-gold-dark">Розрахувати вартість</a>
+            </div>
+          </article>
+          <article class="flex flex-col overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-md transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-night-line dark:bg-night-card">
+            <img src="assets/images/karcher-puzzi-8-1.jpg" alt="Миючий пилосос Karcher Puzzi 8/1" width="320" height="240" loading="lazy" class="aspect-[4/3] w-full bg-transparent object-cover">
+            <div class="flex flex-1 flex-col gap-2 p-5">
+              <h3 class="text-xl font-bold text-brand-dark dark:text-emerald-200">Миючий пилосос Puzzi 8/1</h3>
+              <p class="flex-1 text-sm text-slate-600 dark:text-night-muted">Глибоке очищення м’яких меблів, килимів і матраців.</p>
+              <a href="#calculator" class="mt-3 inline-flex min-h-11 items-center justify-center rounded-full bg-gold px-4 font-bold text-slate-800 transition-colors hover:bg-gold-dark">Розрахувати вартість</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--mint" id="eco" aria-labelledby="eco-title">
+      <div class="container split">
+        <div>
+          <h2 id="eco-title">Безпека та екологічність засобів Kiehl</h2>
+          <p>Професійна хімія Kiehl ефективно видаляє забруднення та безпечна для вашої родини.</p>
+          <ul class="checks">
+            <li>Біорозкладні компоненти</li>
+            <li>Без різких запахів і токсичних випарів</li>
+            <li>Безпечні для дітей та домашніх тварин</li>
+            <li>Не залишають слідів на поверхнях</li>
+          </ul>
+        </div>
+        <img class="photo" src="assets/images/kiehl-products.jpg" alt="Еко-засоби Kiehl для прибирання" width="480" height="360" loading="lazy">
+      </div>
+    </section>
+
+    <section class="section" id="comparison" aria-labelledby="cmp-title">
+      <div class="container">
+        <h2 id="cmp-title">Tidyly vs стандартне прибирання</h2>
+        <div class="table-wrap">
+          <table>
+            <caption>Порівняння прибирання Tidyly зі стандартним</caption>
+            <thead><tr><th scope="col">Критерій</th><th scope="col">Tidyly</th><th scope="col">Стандартне прибирання</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Якість очищення</th><td>Глибоке, професійне</td><td>Поверхневе</td></tr>
+              <tr><th scope="row">Безпека хімії</th><td>Біорозкладні еко-засоби</td><td>Агресивні засоби</td></tr>
+              <tr><th scope="row">Час висихання</th><td>Швидкий</td><td>Тривалий</td></tr>
+              <tr><th scope="row">Алергени</th><td>HEPA-фільтрація</td><td>Без фільтрації</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--mint" id="results" aria-labelledby="res-title">
+      <div class="container">
+        <h2 id="res-title">До та після</h2>
+        <p class="lead">Подивіться, як змінюються простори після роботи наших клінерів.</p>
+        <div class="cards cards--wide">
+          <article class="card ba">
+            <h3>Генеральне прибирання кухні</h3>
+            <figure><img src="assets/images/kitchen-before.jpg" alt="Кухня до прибирання: жирні фасади та забруднена плита" width="400" height="300" loading="lazy"><figcaption>До</figcaption></figure>
+            <figure class="after"><img src="assets/images/kitchen-after.jpg" alt="Та сама кухня після прибирання: чисті фасади та сяюча плита" width="400" height="300" loading="lazy"><figcaption>Після</figcaption></figure>
+          </article>
+          <article class="card ba">
+            <h3>Хімчистка дивану</h3>
+            <figure><img src="assets/images/sofa-before.jpg" alt="Диван до хімчистки: плями на оббивці" width="400" height="300" loading="lazy"><figcaption>До</figcaption></figure>
+            <figure class="after"><img src="assets/images/sofa-after.jpg" alt="Диван після хімчистки: чиста світла оббивка" width="400" height="300" loading="lazy"><figcaption>Після</figcaption></figure>
+          </article>
+        </div>
+        <a class="btn btn--gold" href="#calculator">Розрахувати вартість</a>
+      </div>
+    </section>
+
+    <section class="section" id="reviews" aria-labelledby="rev-title">
+      <div class="container">
+        <h2 id="rev-title">Відгуки клієнтів</h2>
+        <div class="cards">
+          <article class="card">
+            <h3>Олена К.</h3>
+            <p class="stars" role="img" aria-label="Оцінка 5 з 5">★★★★★</p>
+            <blockquote><p>Кухня після прибирання як нова. Приїхали вчасно, працювали акуратно.</p></blockquote>
+          </article>
+          <article class="card">
+            <h3>Андрій М.</h3>
+            <p class="stars" role="img" aria-label="Оцінка 5 з 5">★★★★★</p>
+            <blockquote><p>Диван після хімчистки як з магазину і без різкого запаху.</p></blockquote>
+          </article>
+          <article class="card">
+            <h3>Ірина Б.</h3>
+            <p class="stars" role="img" aria-label="Оцінка 5 з 5">★★★★★</p>
+            <blockquote><p>Прибирання офісу замовляємо пів року: стабільна якість і зручне бронювання.</p></blockquote>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--mint" id="calculator" aria-labelledby="calc-title">
+      <div class="container">
+        <h2 id="calc-title">Калькулятор вартості та бронювання</h2>
+        <form class="calc" action="#" method="post">
+          <div class="calc__steps">
+            <fieldset class="panel">
+              <legend>Крок 1. Параметри прибирання</legend>
+              <fieldset class="choices">
+                <legend>Тип приміщення</legend>
+                <label><input type="radio" name="type" value="flat" checked> Квартира</label>
+                <label><input type="radio" name="type" value="house"> Будинок</label>
+                <label><input type="radio" name="type" value="office"> Офіс</label>
+              </fieldset>
+              <div class="field">
+                <div class="field__top"><label for="area">Площа приміщення</label><output id="area-out" for="area">60 м²</output></div>
+                <input type="range" id="area" name="area" min="20" max="300" step="5" value="60">
+              </div>
+              <fieldset class="choices">
+                <legend>Додаткові послуги</legend>
+                <label><input type="checkbox" name="extras" value="windows"> Миття вікон</label>
+                <label><input type="checkbox" name="extras" value="fridge"> Чистка холодильника</label>
+                <label><input type="checkbox" name="extras" value="oven"> Чистка духовки</label>
+                <label><input type="checkbox" name="extras" value="sofa"> Хімчистка дивану</label>
+              </fieldset>
+            </fieldset>
+
+            <fieldset class="panel">
+              <legend>Крок 2. Дата, час та адреса</legend>
+              <div class="cal" id="cal" hidden>
+                <div class="cal__head">
+                  <button class="cal__nav" id="cal-prev" type="button" aria-label="Попередній місяць">‹</button>
+                  <p id="cal-month" aria-live="polite"></p>
+                  <button class="cal__nav" id="cal-next" type="button" aria-label="Наступний місяць">›</button>
+                </div>
+                <table aria-labelledby="cal-month">
+                  <thead><tr>
+                    <th scope="col" abbr="Понеділок">Пн</th><th scope="col" abbr="Вівторок">Вт</th><th scope="col" abbr="Середа">Ср</th>
+                    <th scope="col" abbr="Четвер">Чт</th><th scope="col" abbr="П’ятниця">Пт</th><th scope="col" abbr="Субота">Сб</th><th scope="col" abbr="Неділя">Нд</th>
+                  </tr></thead>
+                  <tbody id="cal-body"></tbody>
+                </table>
+              </div>
+              <div class="row">
+                <div class="field"><label for="date">Дата</label><input type="date" id="date" name="date" required></div>
+                <div class="field">
+                  <label for="time">Час початку</label>
+                  <select id="time" name="time" required>
+                    <option value="">Оберіть час</option>
+                    <option>09:00</option><option>11:00</option><option>13:00</option><option>15:00</option><option>17:00</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="field"><label for="city">Місто</label><input type="text" id="city" name="city" autocomplete="address-level2" required></div>
+                <div class="field"><label for="street">Вулиця та будинок</label><input type="text" id="street" name="street" autocomplete="address-line1" required></div>
+              </div>
+            </fieldset>
+          </div>
+
+          <aside class="summary" aria-labelledby="sum-title">
+            <h3 id="sum-title">Ваше замовлення</h3>
+            <dl aria-live="polite">
+              <dt>Приміщення</dt><dd id="sum-type">Квартира</dd>
+              <dt>Площа</dt><dd id="sum-area">60 м²</dd>
+              <dt>Додатково</dt><dd id="sum-extras">Не обрано</dd>
+              <dt>Дата і час</dt><dd id="sum-when">Не обрано</dd>
+            </dl>
+            <p class="hint" id="calc-hint">Заповніть усі дані та натисніть «Розрахувати вартість».</p>
+            <button class="btn btn--green btn--block" type="button" id="calc-btn">Розрахувати вартість</button>
+            <p class="total" id="total-row" hidden>Разом: <output id="total" name="total">0 ₴</output></p>
+            <button class="btn btn--gold btn--block" type="submit" id="confirm-btn" disabled>Підтвердити замовлення</button>
+          </aside>
+        </form>
+      </div>
+    </section>
+
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="container faq">
+        <h2 id="faq-title">Поширені запитання</h2>
+        <details><summary>Чи потрібно бути вдома під час прибирання?</summary><p>Ні, можна залишити ключі. Після завершення ми зателефонуємо.</p></details>
+        <details><summary>Чи безпечні засоби для дітей і тварин?</summary><p>Так, ми використовуємо біорозкладні еко-засоби Kiehl без різких запахів.</p></details>
+        <details><summary>Скільки триває прибирання?</summary><p>Квартира до 60 м² зазвичай займає 3–4 години.</p></details>
+      </div>
+    </section>
+
+    <section class="section section--mint" id="team" aria-labelledby="team-title">
+      <div class="container split">
+        <div>
+          <h2 id="team-title">Наша команда</h2>
+          <p>Наші клінери проходять навчання, перевірку та працюють за єдиними стандартами якості.</p>
+        </div>
+        <img class="photo" src="assets/images/team.jpg" alt="Команда клінерів Tidyly у фірмовій формі" width="560" height="380" loading="lazy">
+      </div>
+    </section>
+
+    <!-- ===== МЕДІА 1: Вбудоване відео (YouTube embed, адаптивне 16:9) ===== -->
+    <section class="section" id="video" aria-labelledby="video-title">
+      <div class="container">
+        <h2 id="video-title">Як ми прибираємо</h2>
+        <!-- aspect-video тримає пропорцію 16:9 на будь-якому екрані, без зсуву макета -->
+        <div class="mx-auto aspect-video w-full max-w-3xl overflow-hidden rounded-3xl shadow-lg">
+          <iframe class="h-full w-full border-0"
+            src="https://www.youtube-nocookie.com/embed/4avtFeMoumE"
+            title="Відео: 5 правил ідеального прибирання"
+            loading="lazy"
+            allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--mint" id="districts" aria-labelledby="dist-title">
+      <div class="container">
+        <h2 id="dist-title">Райони обслуговування</h2>
+        <ul class="cards cards--small chips">
+          <li>Галицький</li><li>Шевченківський</li><li>Франківський</li>
+          <li>Залізничний</li><li>Сихівський</li><li>Личаківський</li>
+        </ul>
+
+        <!-- ===== МЕДІА 2: Динамічний інформер погоди (Open-Meteo API, логіка в js/script.js) ===== -->
+        <aside class="mt-8" aria-labelledby="weather-title">
+          <section class="card max-w-sm">
+            <h3 id="weather-title">Погода у Львові</h3>
+            <p id="weather-out" aria-live="polite">Завантаження погоди…</p>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="contacts" aria-labelledby="con-title">
+      <div class="container">
+        <h2 id="con-title">Контакти</h2>
+        <div class="cards">
+          <article class="card card--accent"><h3>Телефон</h3><p><a href="tel:+380441234567">+38 (044) 123 45 67</a></p></article>
+          <article class="card card--accent"><h3>Email</h3><p><a href="mailto:hello@tidyly.com">hello@tidyly.com</a></p></article>
+          <article class="card card--accent"><h3>Офіс</h3><address>м. Львів</address></article>
+        </div>
+
+        <!-- ===== МЕДІА 3: Інтерактивна карта (Google Maps embed, адаптивна висота) ===== -->
+        <section class="mt-10" aria-labelledby="map-title">
+          <h3 id="map-title" class="mb-4">Наше розташування</h3>
+          <div class="h-[320px] overflow-hidden rounded-3xl shadow-lg md:h-[450px]">
+            <iframe class="h-full w-full border-0"
+              src="https://maps.google.com/maps?q=Lviv%2C%20Ukraine&hl=uk&z=12&output=embed"
+              title="Карта: де працює клінінгова служба Tidyly у Львові"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen></iframe>
+          </div>
+        </section>
+
+        <form class="panel contact" action="#" method="post" aria-labelledby="form-title">
+          <h3 id="form-title">Не впевнені? Залиште заявку</h3>
+          <p class="hint">Передзвонимо, відповімо на запитання і допоможемо підібрати прибирання.</p>
+          <div class="row">
+            <div class="field"><label for="name">Ім’я</label><input type="text" id="name" name="name" autocomplete="name" required></div>
+            <div class="field"><label for="phone">Телефон</label><input type="tel" id="phone" name="phone" autocomplete="tel" required></div>
+            <div class="field">
+              <label for="call">Зручний час</label>
+              <select id="call" name="call"><option value="">Будь-який</option><option>Ранок</option><option>День</option><option>Вечір</option></select>
+            </div>
+          </div>
+          <label class="consent"><input type="checkbox" name="consent" required> Погоджуюсь з <a href="privacy.html">політикою конфіденційності</a></label>
+          <button class="btn btn--green" type="submit">Надіслати заявку</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="section section--mint" id="careers" aria-labelledby="job-title">
+      <div class="container">
+        <div class="cta">
+          <h2 id="job-title">Шукаєте роботу клінером?</h2>
+          <p>Гнучкий графік, офіційне працевлаштування, навчання та професійний інвентар.</p>
+          <a class="btn btn--light" href="vacancies.html">Переглянути вакансії</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-brand-dark pt-16 pb-6 text-green-50 dark:border-t dark:border-night-line dark:bg-night-soft">
+    <div class="container grid grid-cols-1 gap-10 pb-10 md:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <a href="index.html" class="mb-4 inline-block" aria-label="Tidyly — на головну"><img src="assets/images/logo.svg" alt="Tidyly" width="120" height="32" class="h-8 w-auto bg-transparent brightness-0 invert"></a>
+        <p class="mb-2 text-sm"><a href="mailto:hello@tidyly.com" class="text-green-50 transition-colors hover:text-gold">hello@tidyly.com</a></p>
+        <p class="text-sm text-green-100">Щодня, 08:00–20:00</p>
+      </div>
+      <nav aria-labelledby="f1">
+        <h2 id="f1" class="mb-4 text-lg font-bold text-white after:hidden">Послуги</h2>
+        <ul class="space-y-2">
+          <li><a href="#services" class="text-sm text-green-50 transition-colors hover:text-gold">Генеральне прибирання</a></li>
+          <li><a href="#services" class="text-sm text-green-50 transition-colors hover:text-gold">Підтримуюче прибирання</a></li>
+          <li><a href="#services" class="text-sm text-green-50 transition-colors hover:text-gold">Хімчистка меблів</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="f2">
+        <h2 id="f2" class="mb-4 text-lg font-bold text-white after:hidden">Компанія</h2>
+        <ul class="space-y-2">
+          <li><a href="#equipment" class="text-sm text-green-50 transition-colors hover:text-gold">Техніка</a></li>
+          <li><a href="#team" class="text-sm text-green-50 transition-colors hover:text-gold">Наша команда</a></li>
+          <li><a href="vacancies.html" class="text-sm text-green-50 transition-colors hover:text-gold">Вакансії</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 class="mb-4 text-lg font-bold text-white after:hidden">Ми в соцмережах</h2>
+        <ul class="mb-4 flex items-center gap-2">
+          <li><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="inline-flex h-11 w-11 items-center justify-center text-green-50 transition-colors hover:text-gold" aria-label="Instagram (нова вкладка)"><svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg></a></li>
+          <li><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="inline-flex h-11 w-11 items-center justify-center text-green-50 transition-colors hover:text-gold" aria-label="Facebook (нова вкладка)"><svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a></li>
+          <li><a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" class="inline-flex h-11 w-11 items-center justify-center text-green-50 transition-colors hover:text-gold" aria-label="TikTok (нова вкладка)"><svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 7.917v4.034a9.948 9.948 0 0 1-5-1.951v4.5a6.5 6.5 0 1 1-8-6.326v4.326a2.5 2.5 0 1 0 4 2v-11.5h4.083a6.005 6.005 0 0 0 4.917 4.917z"/></svg></a></li>
+        </ul>
+        <p class="text-sm">Гаряча лінія: <a href="tel:+380441234567" class="font-semibold text-gold hover:underline">+38 (044) 123 45 67</a></p>
+      </div>
+    </div>
+    <div class="container flex flex-col items-center justify-between gap-2 border-t border-white/20 pt-6 text-xs text-green-100 sm:flex-row">
+      <p>© 2026 Tidyly. Усі права захищено.</p>
+      <p><a href="privacy.html" class="text-green-100 hover:underline">Політика конфіденційності</a> · <a href="offer.html" class="text-green-100 hover:underline">Публічна оферта</a></p>
+    </div>
+  </footer>
+  <script src="js/script.js" defer></script>
+</body>
+</html>
