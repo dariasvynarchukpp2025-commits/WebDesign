@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вакансії — Tidyly</title>
+  <meta name="description" content="Актуальні вакансії Tidyly у Львові: клінер, спеціаліст із хімчистки меблів, адміністратор-диспетчер.">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%A7%B9%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      corePlugins: { preflight: false, container: false },
+      theme: { extend: { colors: {
+        brand: { DEFAULT: '#2e7d32', light: '#38a169', dark: '#1b4d20' },
+        gold: { DEFAULT: '#e5a93c', dark: '#c98c1e' },
+        mint: '#f4f9f5',
+        night: { DEFAULT: '#0e1512', soft: '#121c17', card: '#17231e', line: '#26362e', muted: '#b4c4ba' }
+      } } }
+    };
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/extras.css">
+</head>
+<body>
+  <a class="skip" href="#main">Перейти до вмісту</a>
+
+  <header class="sticky top-0 z-50 bg-white/95 shadow-md backdrop-blur dark:bg-night/95">
+    <div class="container flex items-center justify-between gap-4 py-3">
+      <a href="index.html" class="flex items-center rounded-md" aria-label="Tidyly — на головну">
+        <img src="assets/images/logo.svg" alt="Tidyly" width="120" height="32" class="h-8 w-auto bg-transparent dark:brightness-0 dark:invert">
+      </a>
+      <div class="flex items-center gap-3">
+        <button id="theme-toggle" type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-full border-2 border-gray-200 text-slate-700 transition-colors hover:border-brand dark:border-night-line dark:text-green-50" aria-pressed="false" aria-label="Темна тема">
+          <svg class="h-5 w-5 dark:hidden" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="hidden h-5 w-5 dark:block" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+        <a href="index.html" class="inline-flex min-h-11 items-center justify-center rounded-full bg-gold px-6 font-bold text-slate-800 transition-colors hover:bg-gold-dark">На головну</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section section--mint" aria-labelledby="vac-title">
+      <div class="container">
+        <h1 id="vac-title">Актуальні вакансії</h1>
+        <p class="lead">Працюйте в команді Tidyly у Львові: гнучкий графік, офіційне працевлаштування, навчання та професійний інвентар. Оплата обговорюється на співбесіді.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="open-title">
+      <div class="container">
+        <h2 id="open-title">Відкриті позиції</h2>
+        <div class="cards">
+          <article class="card card--accent vac">
+            <h3>Клінер</h3>
+            <div class="vac__meta"><span class="tag">Львів</span><span class="tag">Повна або часткова зайнятість</span></div>
+            <p>Прибирання квартир, будинків та офісів за єдиними стандартами Tidyly.</p>
+            <ul><li>Досвід не обов’язковий, навчаємо</li><li>Фірмова форма та інвентар</li><li>Гнучкий графік змін</li></ul>
+            <a class="btn btn--green" href="#apply">Подати заявку</a>
+          </article>
+          <article class="card card--accent vac">
+            <h3>Спеціаліст із хімчистки меблів</h3>
+            <div class="vac__meta"><span class="tag">Львів</span><span class="tag">Повна зайнятість</span></div>
+            <p>Робота з миючим пилососом та парогенератором: дивани, крісла, килими.</p>
+            <ul><li>Навчання роботі з технікою Karcher</li><li>Робота з еко-засобами Kiehl</li><li>Виїзд до клієнтів містом</li></ul>
+            <a class="btn btn--green" href="#apply">Подати заявку</a>
+          </article>
+          <article class="card card--accent vac">
+            <h3>Адміністратор-диспетчер</h3>
+            <div class="vac__meta"><span class="tag">Львів</span><span class="tag">Повна зайнятість</span></div>
+            <p>Приймання заявок, узгодження часу з клієнтами та розподіл команд.</p>
+            <ul><li>Спілкування українською</li><li>Увага до деталей</li><li>Графік 5/2</li></ul>
+            <a class="btn btn--green" href="#apply">Подати заявку</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--mint" id="apply" aria-labelledby="apply-title">
+      <div class="container">
+        <h2 id="apply-title">Залиште заявку</h2>
+        <form class="panel contact" action="#" method="post" aria-labelledby="apply-title">
+          <div class="row">
+            <div class="field"><label for="v-name">Ім’я</label><input type="text" id="v-name" name="name" autocomplete="name" required></div>
+            <div class="field"><label for="v-phone">Телефон</label><input type="tel" id="v-phone" name="phone" autocomplete="tel" required></div>
+            <div class="field">
+              <label for="v-pos">Вакансія</label>
+              <select id="v-pos" name="position" required>
+                <option value="">Оберіть вакансію</option>
+                <option>Клінер</option>
+                <option>Спеціаліст із хімчистки меблів</option>
+                <option>Адміністратор-диспетчер</option>
+              </select>
+            </div>
+          </div>
+          <label class="consent"><input type="checkbox" name="consent" required> Погоджуюсь на обробку персональних даних</label>
+          <button class="btn btn--green" type="submit">Надіслати заявку</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-brand-dark py-8 text-green-50 dark:border-t dark:border-night-line dark:bg-night-soft">
+    <div class="container flex flex-col items-center justify-between gap-3 text-sm sm:flex-row">
+      <p>© 2026 Tidyly. Усі права захищено.</p>
+      <p><a href="index.html" class="text-green-50 transition-colors hover:text-gold">← Повернутися на головну</a></p>
+    </div>
+  </footer>
+  <script src="js/script.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+/* Tidyly — css/extras.css (підключати ПІСЛЯ css/style.css) */
+
+/* 1. Hero: бульбашки поверх фото + повільний зум */
+.bubbles { position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; }
+.bubbles span {
+  position: absolute; bottom: -60px; border-radius: 50%; opacity: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, .9), rgba(56, 161, 105, .2) 65%);
+  border: 1px solid rgba(46, 125, 50, .3);
+}
+html.dark .bubbles span {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, .5), rgba(111, 220, 151, .18) 65%);
+  border-color: rgba(111, 220, 151, .4);
+}
+.bubbles span:nth-child(1) { left: 46%; width: 26px; height: 26px; --t: 11s; --d: 0s; }
+.bubbles span:nth-child(2) { left: 57%; width: 14px; height: 14px; --t: 14s; --d: 3s; }
+.bubbles span:nth-child(3) { left: 66%; width: 34px; height: 34px; --t: 12s; --d: 6s; }
+.bubbles span:nth-child(4) { left: 76%; width: 18px; height: 18px; --t: 15s; --d: 1.5s; }
+.bubbles span:nth-child(5) { left: 86%; width: 30px; height: 30px; --t: 10s; --d: 4.5s; }
+.bubbles span:nth-child(6) { left: 94%; width: 16px; height: 16px; --t: 13s; --d: 8s; }
+
+@keyframes bubble-rise {
+  0%   { transform: translate(0, 0) scale(.6); opacity: 0; }
+  15%  { opacity: .9; }
+  50%  { transform: translate(-18px, -45vh) scale(.9); }
+  100% { transform: translate(14px, -92vh) scale(1.1); opacity: 0; }
+}
+@keyframes hero-zoom { to { transform: scale(1.08); } }
+
+@media (prefers-reduced-motion: no-preference) {
+  #hero img { transform-origin: right top; animation: hero-zoom 18s ease-in-out infinite alternate; }
+  .bubbles span { animation: bubble-rise var(--t) linear var(--d) infinite; }
+}
+
+/* 2. Техніка: підсвітка та збільшення фото при наведенні */
+#equipment article { transition: box-shadow .3s, transform .3s; }
+#equipment article > div { position: relative; z-index: 1; background: inherit; }
+#equipment article img { transition: transform .5s ease, filter .5s ease; }
+#equipment article:hover img,
+#equipment article:focus-within img { transform: scale(1.08); filter: brightness(1.07) saturate(1.15); }
+#equipment article:hover { box-shadow: 0 0 0 3px rgba(229, 169, 60, .6), 0 18px 40px rgba(46, 125, 50, .28); }
+
+/* 3. Команда: фото розвертається, на звороті текст */
+.flip { perspective: 1000px; aspect-ratio: 560 / 380; min-height: 260px; }
+.flip__inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .8s cubic-bezier(.2, .7, .2, 1); }
+.flip:hover .flip__inner,
+.flip:focus-within .flip__inner { transform: rotateY(180deg); }
+.flip__face { position: absolute; inset: 0; overflow: hidden; border-radius: var(--r-lg); box-shadow: var(--shadow-lg); backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.flip__face img { width: 100%; height: 100%; object-fit: cover; }
+.flip__back { transform: rotateY(180deg); display: grid; align-content: center; gap: .75rem; padding: 1.75rem; background: linear-gradient(135deg, var(--green-dark), var(--green)); color: #fff; }
+.flip__back h3, .flip__back p, .flip__back li { color: #fff; max-width: none; }
+.flip__back ul { display: grid; gap: .35rem; font-weight: 600; }
+.flip__back li::before { content: "✓ "; color: var(--gold); }
+@media (max-width: 600px) {
+  .flip { aspect-ratio: auto; height: 330px; }
+  .flip__back { padding: 1.25rem; font-size: .9375rem; }
+}
+
+/* 4. Райони: 2 рядки по 3 */
+ul.chips { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.chips li { overflow-wrap: anywhere; }
+@media (max-width: 480px) { ul.chips { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* 5. Сторінка вакансій */
+.vac { display: grid; gap: .75rem; }
+.vac ul { display: grid; gap: .25rem; padding-left: 1.1rem; list-style: disc; color: var(--muted); }
+.vac__meta { display: flex; flex-wrap: wrap; gap: .5rem; }
+.tag { padding: .15rem .75rem; border-radius: 99px; background: var(--tint); color: var(--heading); font-size: .875rem; font-weight: 700; }
+   /* Засоби Kiehl: збільшення та підсвітка при наведенні */
+   #eco .photo { transition: transform .5s ease, filter .5s ease, box-shadow .5s ease; }
+   #eco .photo:hover {
+     transform: scale(1.04);
+     filter: brightness(1.08) saturate(1.15);
+     box-shadow: 0 0 0 4px rgba(229, 169, 60, .65), 0 20px 48px rgba(46, 125, 50, .4);
+   }
