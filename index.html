@@ -392,20 +392,65 @@
           </div>
         </section>
 
-        <form class="panel contact" action="#" method="post" aria-labelledby="form-title">
-          <h3 id="form-title">Не впевнені? Залиште заявку</h3>
-          <p class="hint">Передзвонимо, відповімо на запитання і допоможемо підібрати прибирання.</p>
-          <div class="row">
-            <div class="field"><label for="name">Ім’я</label><input type="text" id="name" name="name" autocomplete="name" required></div>
-            <div class="field"><label for="phone">Телефон</label><input type="tel" id="phone" name="phone" autocomplete="tel" required></div>
-            <div class="field">
-              <label for="call">Зручний час</label>
-              <select id="call" name="call"><option value="">Будь-який</option><option>Ранок</option><option>День</option><option>Вечір</option></select>
-            </div>
-          </div>
-          <label class="consent"><input type="checkbox" name="consent" required> Погоджуюсь з <a href="privacy.html">політикою конфіденційності</a></label>
-          <button class="btn btn--green" type="submit">Надіслати заявку</button>
-        </form>
+        <form id="feedbackForm" class="panel contact" action="#" method="post" aria-labelledby="form-title" novalidate>
+  <h3 id="form-title">Не впевнені? Залиште заявку</h3>
+  <p class="hint">Передзвонимо, відповімо на запитання і допоможемо підібрати прибирання.</p>
+
+  <div class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2">
+
+    <div class="field">
+      <label for="name">Ім’я</label>
+      <input type="text" id="name" name="name" class="w-full" autocomplete="name" maxlength="60"
+             required aria-required="true" aria-invalid="false" aria-describedby="nameError">
+      <p id="nameError" class="hidden text-sm font-semibold text-red-600 dark:text-red-400"></p>
+    </div>
+
+    <div class="field">
+      <label for="email">Електронна пошта</label>
+      <input type="email" id="email" name="email" class="w-full" autocomplete="email" inputmode="email"
+             required aria-required="true" aria-invalid="false" aria-describedby="emailError">
+      <p id="emailError" class="hidden text-sm font-semibold text-red-600 dark:text-red-400"></p>
+    </div>
+
+    <div class="field">
+      <label for="phone">Телефон</label>
+      <input type="tel" id="phone" name="phone" class="w-full" autocomplete="tel" inputmode="tel" 
+             placeholder="+380501234567"
+             required aria-required="true" aria-invalid="false" aria-describedby="phoneHint phoneError">
+      <p id="phoneHint" class="text-sm text-slate-600 dark:text-night-muted">Формат: +380XXXXXXXXX</p>
+      <p id="phoneError" class="hidden text-sm font-semibold text-red-600 dark:text-red-400"></p>
+    </div>
+
+    <div class="field">
+      <label for="call">Зручний час</label>
+      <select id="call" name="call" class="w-full">
+        <option value="">Будь-який</option>
+        <option>Ранок</option>
+        <option>День</option>
+        <option>Вечір</option>
+      </select>
+    </div>
+
+    <div class="field md:col-span-2">
+      <label for="message">Повідомлення</label>
+      <textarea id="message" name="message" class="w-full" rows="5" maxlength="1000"
+                required aria-required="true" aria-invalid="false" aria-describedby="messageError"></textarea>
+      <p id="messageError" class="hidden text-sm font-semibold text-red-600 dark:text-red-400"></p>
+    </div>
+  </div>
+
+  <div class="grid gap-1">
+    <label class="consent">
+      <input type="checkbox" id="agreement" name="consent" required aria-required="true"
+             aria-invalid="false" aria-describedby="agreementError">
+      <span>Погоджуюсь з <a href="privacy.html">політикою конфіденційності</a></span>
+    </label>
+    <p id="agreementError" class="hidden text-sm font-semibold text-red-600 dark:text-red-400"></p>
+  </div>
+
+  <button class="btn btn--green" type="submit">Надіслати заявку</button>
+</form>
+         
       </div>
     </section>
 
@@ -419,7 +464,16 @@
       </div>
     </section>
   </main>
-
+<div id="successModal"
+     class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 p-4"
+     role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalText">
+  <div class="w-full max-w-md rounded-3xl bg-white p-8 text-center shadow-2xl dark:bg-night-card">
+    <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-brand text-2xl font-bold text-white" aria-hidden="true">✓</div>
+    <h3 id="modalTitle" class="mb-2 text-2xl font-extrabold">Дякуємо!</h3>
+    <p id="modalText" class="mx-auto mb-6">Форма успішно пройшла клієнтську валідацію. Демонстрація успішного надсилання.</p>
+    <button id="closeModalBtn" type="button" class="btn btn--green">Закрити</button>
+  </div>
+</div>
   <footer class="bg-brand-dark pt-16 pb-6 text-green-50 dark:border-t dark:border-night-line dark:bg-night-soft">
     <div class="container grid grid-cols-1 gap-10 pb-10 md:grid-cols-2 lg:grid-cols-4">
       <div>
@@ -459,5 +513,6 @@
     </div>
   </footer>
   <script src="js/script.js" defer></script>
+     <script src="js/validation.js" defer></script>
 </body>
 </html>

@@ -72,3 +72,20 @@ ul.chips { grid-template-columns: repeat(3, minmax(0, 1fr)); }
      filter: brightness(1.08) saturate(1.15);
      box-shadow: 0 0 0 4px rgba(229, 169, 60, .65), 0 20px 48px rgba(46, 125, 50, .4);
    }
+
+
+   /* Поле textarea для форми зворотного зв'язку */
+textarea {
+  width: 100%;
+  min-height: 7rem;
+  padding: .7rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: var(--r);
+  background: var(--surface);
+  font: inherit;
+  color: inherit;
+  resize: vertical;
+  transition: border-color .2s, box-shadow .2s;
+}
+textarea:hover { border-color: var(--green-light); }
+textarea:focus { border-color: var(--green); outline: none; box-shadow: 0 0 0 4px rgba(56, 161, 105, .25); }

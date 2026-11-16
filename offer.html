@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Публічна оферта — Tidyly</title>
+  <meta name="description" content="Публічна оферта клінінгової служби Tidyly: умови замовлення, оплати, перенесення та відповідальності.">
+  <script>
+    /* Тема: збережений вибір, інакше системна (як на головній) */
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%A7%B9%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      corePlugins: { preflight: false, container: false },
+      theme: { extend: { colors: {
+        brand: { DEFAULT: '#2e7d32', light: '#38a169', dark: '#1b4d20' },
+        gold: { DEFAULT: '#e5a93c', dark: '#c98c1e' },
+        mint: '#f4f9f5',
+        night: { DEFAULT: '#0e1512', soft: '#121c17', card: '#17231e', line: '#26362e', muted: '#b4c4ba' }
+      } } }
+    };
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/extras.css">
+</head>
+<body>
+  <a class="skip" href="#main">Перейти до вмісту</a>
+
+  <header class="sticky top-0 z-50 bg-white/95 shadow-md backdrop-blur dark:bg-night/95">
+    <div class="container flex items-center justify-between gap-4 py-3">
+      <a href="index.html" class="flex items-center rounded-md" aria-label="Tidyly — на головну">
+        <img src="assets/images/logo.svg" alt="Tidyly" width="120" height="32" class="h-8 w-auto bg-transparent dark:brightness-0 dark:invert">
+      </a>
+      <a href="index.html" class="inline-flex min-h-11 items-center font-semibold text-slate-700 transition-colors hover:text-brand dark:text-green-50 dark:hover:text-emerald-300">← На головну</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section" aria-labelledby="offer-title">
+      <div class="container">
+        <div class="mx-auto max-w-3xl">
+          <h1 id="offer-title" class="mb-2 text-3xl font-extrabold leading-tight text-brand-dark sm:text-4xl dark:text-green-50">Публічна оферта</h1>
+          <p class="mb-8 text-sm text-slate-600 dark:text-night-muted">Остання редакція: листопад 2026 року</p>
+
+          <p class="mb-8 rounded-2xl border border-gray-200 bg-mint p-4 text-sm text-slate-700 dark:border-night-line dark:bg-night-card dark:text-night-muted">
+            Сайт створено в навчальних цілях. Цей текст є демонстраційним і не є юридично чинним договором.
+          </p>
+
+          <h2 class="mb-3 mt-8 text-2xl font-bold text-brand-dark after:hidden dark:text-emerald-200">1. Загальні положення</h2>
+          <p class="mb-4">Ця оферта визначає умови, на яких Tidyly (далі — Виконавець) надає послуги прибирання у Львові. Оформлення замовлення на сайті означає, що Замовник ознайомився з умовами та погоджується з ними.</p>
+
+          <h2 class="mb-3 mt-8 text-2xl font-bold text-brand-dark after:hidden dark:text-emerald-200">2. Послуги</h2>
+          <ul class="mb-4 list-disc space-y-1 pl-6">
+            <li>генеральне прибирання;</li>
+            <li>підтримуюче прибирання;</li>
+            <li>хімчистка меблів;</li>
+            <li>додаткові опції: миття вікон, чистка холодильника та духовки.</li>
+          </ul>
+
+          <h2 class="mb-3 mt-8 text-2xl font-bold text-brand-dark after:hidden dark:text-emerald-200">3. Вартість і оплата</h2>
+          <p class="mb-4">Вартість розраховується в калькуляторі на сайті залежно від типу та площі приміщення й обраних додаткових послуг. Остаточну суму Замовник бачить до підтвердження замовлення. Оплата здійснюється після завершення робіт готівкою або карткою.</p>
+
+          <h2 class="mb-3 mt-8 text-2xl font-bold text-brand-dark after:hidden dark:text-emerald-200">4. Порядок виконання</h2>
+          <p class="mb-4">Прибирання виконується у вибрані Замовником дату й час за вказаною адресою. Замовник забезпечує доступ до приміщення. Інвентар і засоби надає Виконавець.</p>
+
+          <h2 class="mb-3 mt-8 text-2xl font-bold text-brand-dark after:hidden dark:text-emerald-200">5. Перенесення та скасування</h2>
+          <p class="mb-4">Замовлення можна перенести або скасувати без доплат, повідомивши Виконавця щонайменше за добу до початку робіт.</p>
+
+          <h2 class="mb-3 mt-8 text-2xl font-bold text-brand-dark after:hidden dark:text-emerald-200">6. Відповідальність</h2>
+          <p class="mb-4">Виконавець несе матеріальну відповідальність за пошкодження майна Замовника, завдані з його вини під час виконання робіт. Претензії приймаються протягом доби після завершення прибирання.</p>
+
+          <h2 class="mb-3 mt-8 text-2xl font-bold text-brand-dark after:hidden dark:text-emerald-200">7. Персональні дані</h2>
+          <p class="mb-4">Обробка персональних даних Замовника описана в <a href="privacy.html">політиці конфіденційності</a>.</p>
+
+          <h2 class="mb-3 mt-8 text-2xl font-bold text-brand-dark after:hidden dark:text-emerald-200">8. Контакти</h2>
+          <p class="mb-8"><a href="mailto:hello@tidyly.com">hello@tidyly.com</a>, <a href="tel:+380441234567">+38 (044) 123 45 67</a>. Щодня, 08:00–20:00.</p>
+
+          <a class="btn btn--green" href="index.html">Повернутися на головну</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-brand-dark py-6 text-green-50 dark:border-t dark:border-night-line dark:bg-night-soft">
+    <div class="container flex flex-col items-center justify-between gap-2 text-xs text-green-100 sm:flex-row">
+      <p>© 2026 Tidyly. Усі права захищено.</p>
+      <p><a href="privacy.html" class="text-green-100 hover:underline">Політика конфіденційності</a> · <a href="offer.html" class="text-green-100 hover:underline" aria-current="page">Публічна оферта</a></p>
+    </div>
+  </footer>
+</body>
+</html>

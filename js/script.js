@@ -239,7 +239,7 @@
   }
 
   /* ---------- Форма зворотного зв’язку ---------- */
-  const contact = document.querySelector('.contact');
+  const contact = document.querySelector('.contact:not(#feedbackForm)');
   if (contact) {
     contact.addEventListener('submit', (e) => {
       e.preventDefault();

@@ -148,7 +148,7 @@ output { color: var(--link); font-weight: 800; }
 .field { display: grid; gap: .35rem; }
 .field label { font-weight: 700; }
 .field__top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
-input[type="text"], input[type="tel"], input[type="date"], select {
+input[type="text"], input[type="tel"], input[type="email"], input[type="date"], select {
   width: 100%; min-height: 3.1rem; padding: .7rem 1rem;
   border: 2px solid var(--border); border-radius: var(--r); background: var(--surface);
   transition: border-color .2s, box-shadow .2s;

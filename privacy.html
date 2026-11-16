@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Політика конфіденційності — Tidyly</title>
+  <meta name="description" content="Політика конфіденційності клінінгової служби Tidyly: які дані ми збираємо, навіщо і як ними розпоряджаємось.">
+  <script>
+    /* Тема: збережений вибір, інакше системна (як на головній) */
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%A7%B9%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      corePlugins: { preflight: false, container: false },
+      theme: { extend: { colors: {
+        brand: { DEFAULT: '#2e7d32', light: '#38a169', dark: '#1b4d20' },
+        gold: { DEFAULT: '#e5a93c', dark: '#c98c1e' },
+        mint: '#f4f9f5',
+        night: { DEFAULT: '#0e1512', soft: '#121c17', card: '#17231e', line: '#26362e', muted: '#b4c4ba' }
+      } } }
+    };
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/extras.css">
+</head>
+<body>
+  <a class="skip" href="#main">Перейти до вмісту</a>
+
+  <header class="sticky top-0 z-50 bg-white/95 shadow-md backdrop-blur dark:bg-night/95">
+    <div class="container flex items-center justify-between gap-4 py-3">
+      <a href="index.html" class="flex items-center rounded-md" aria-label="Tidyly — на головну">
+        <img src="assets/images/logo.svg" alt="Tidyly" width="120" height="32" class="h-8 w-auto bg-transparent dark:brightness-0 dark:invert">
+      </a>
+      <a href="index.html" class="inline-flex min-h-11 items-center font-semibold text-slate-700 transition-colors hover:text-brand dark:text-green-50 dark:hover:text-emerald-300">← На головну</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section" aria-labelledby="privacy-title">
+      <div class="container">
+        <div class="mx-auto max-w-3xl">
+          <h1 id="privacy-title" class="mb-2 text-3xl font-extrabold leading-tight text-brand-dark sm:text-4xl dark:text-green-50">Політика конфіденційності</h1>
+          <p class="mb-8 text-sm text-slate-600 dark:text-night-muted">Остання редакція: листопад 2026 року</p>
+
+          <p class="mb-8 rounded-2xl border border-gray-200 bg-mint p-4 text-sm text-slate-700 dark:border-night-line dark:bg-night-card dark:text-night-muted">
+            Сайт створено в навчальних цілях. Форми на ньому не надсилають дані на сервер: введена інформація перевіряється у браузері й не зберігається.
+          </p>
+
+          <h2 class="mb-3 mt-8 text-2xl font-bold text-brand-dark after:hidden dark:text-emerald-200">1. Які дані ми збираємо</h2>
+          <p class="mb-3">Через форму зворотного зв’язку та калькулятор бронювання ми можемо отримувати:</p>
+          <ul class="mb-4 list-disc space-y-1 pl-6">
+            <li>ім’я;</li>
+            <li>адресу електронної пошти;</li>
+            <li>номер телефону у форматі +380XXXXXXXXX;</li>
+            <li>зручний час для зв’язку та текст повідомлення;</li>
+            <li>параметри замовлення: тип і площу приміщення, дату, час та адресу прибирання.</li>
+          </ul>
+
+          <h2 class="mb-3 mt-8 text-2xl font-bold text-brand-dark after:hidden dark:text-emerald-200">2. Навіщо ми використовуємо дані</h2>
+          <ul class="mb-4 list-disc space-y-1 pl-6">
+            <li>зв’язатися з вами та відповісти на запит;</li>
+            <li>розрахувати вартість і підготувати прибирання;</li>
+            <li>підтвердити або перенести замовлення.</li>
+          </ul>
+          <p class="mb-4">Ми не використовуємо ваші дані для розсилок без окремої згоди.</p>
+
+          <h2 class="mb-3 mt-8 text-2xl font-bold text-brand-dark after:hidden dark:text-emerald-200">3. Правова підстава</h2>
+          <p class="mb-4">Дані обробляються на підставі вашої згоди, яку ви надаєте, позначивши чекбокс у формі, а також для виконання замовлення, яке ви оформлюєте.</p>
+
+          <h2 class="mb-3 mt-8 text-2xl font-bold text-brand-dark after:hidden dark:text-emerald-200">4. Передача третім особам</h2>
+          <p class="mb-4">Ми не продаємо й не передаємо ваші дані третім особам, окрім випадків, коли цього вимагає законодавство. Сторінка містить вбудовані сервіси YouTube, Google Maps та Open-Meteo (погода), які можуть обробляти технічні дані відвідувача за власними правилами.</p>
+
+          <h2 class="mb-3 mt-8 text-2xl font-bold text-brand-dark after:hidden dark:text-emerald-200">5. Зберігання</h2>
+          <p class="mb-4">Дані зберігаються лише стільки, скільки потрібно для виконання мети обробки. Вибір теми оформлення (світла чи темна) зберігається локально у вашому браузері й нікуди не передається.</p>
+
+          <h2 class="mb-3 mt-8 text-2xl font-bold text-brand-dark after:hidden dark:text-emerald-200">6. Ваші права</h2>
+          <p class="mb-3">Ви можете у будь-який момент:</p>
+          <ul class="mb-4 list-disc space-y-1 pl-6">
+            <li>отримати інформацію про свої дані;</li>
+            <li>вимагати виправлення або видалення даних;</li>
+            <li>відкликати згоду на обробку.</li>
+          </ul>
+
+          <h2 class="mb-3 mt-8 text-2xl font-bold text-brand-dark after:hidden dark:text-emerald-200">7. Контакти</h2>
+          <p class="mb-8">З питань щодо даних пишіть на <a href="mailto:hello@tidyly.com">hello@tidyly.com</a> або телефонуйте <a href="tel:+380441234567">+38 (044) 123 45 67</a>.</p>
+
+          <a class="btn btn--green" href="index.html">Повернутися на головну</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-brand-dark py-6 text-green-50 dark:border-t dark:border-night-line dark:bg-night-soft">
+    <div class="container flex flex-col items-center justify-between gap-2 text-xs text-green-100 sm:flex-row">
+      <p>© 2026 Tidyly. Усі права захищено.</p>
+      <p><a href="privacy.html" class="text-green-100 hover:underline" aria-current="page">Політика конфіденційності</a> · <a href="offer.html" class="text-green-100 hover:underline">Публічна оферта</a></p>
+    </div>
+  </footer>
+</body>
+</html>
